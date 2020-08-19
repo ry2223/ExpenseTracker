@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ExpenseTracker.Models.Expense>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h4>Expense list</h4>
+
+<h5>Total amount spent: @Model.Sum(i => i.Amount)</h5>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th><a asp-action="AddOrEdit" class="btn btn-outline-success">Add expense</a></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                <a asp-action="AddOrEdit" asp-route-id="@item.ExpenseId" class="btn btn-info ml-1">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.ExpenseId" class="btn btn-danger ml-1" onClick="return confirm('Do you really want to delete the selected item?')">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
